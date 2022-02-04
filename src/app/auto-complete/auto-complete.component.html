@@ -6,7 +6,7 @@
     placeholder="Pick a team">
     <mat-autocomplete #auto="matAutocomplete" [displayWith]="teamDisplayFn">
       <mat-option *ngFor="let team of filteredTeams | async" 
-      [value]="team"
+      
       (onSelectionChange)="onTeamSelect(team)">
         {{team.name}}
       </mat-option>
@@ -26,7 +26,7 @@
     <mat-label>Team Member</mat-label>
     <input type="text" matInput [formControl]="teamMemberControl" [matAutocomplete]="auto2">
     <mat-autocomplete #auto2="matAutocomplete" [displayWith]="teamMemberDisplay">
-      <mat-option *ngFor="let teamMember of filteredTeamMembers | async" [value]="teamMember"
+      <mat-option *ngFor="let teamMember of filteredTeamMembers | async"
       (onSelectionChange)="onTeamMemberSelect(teamMember)">
         {{teamMember.name}}
       </mat-option>
@@ -47,4 +47,5 @@
   {{ t.name }}
 </div>
 
+<h1>{{ selectedTeam?.name }}</h1>
 <h1>{{ selectedTeamMember?.name }}</h1>

@@ -37,10 +37,11 @@ export class AutoCompleteComponent implements OnInit {
   ngOnInit() {
     this.filteredTeams = this.teamControl.valueChanges.pipe(
       startWith(''),
+      //tap(e => console.log(`teams changed to ${e}`)),
       debounceTime(400),
       distinctUntilChanged(),
       // on select, you get a full object, on type you get a string
-      map((value: string | Team) => (typeof value === 'string' ? value : value.name)),
+      map((value: string | Team) => value == null ? '' : (typeof value === 'string' ? value : value.name)),
       tap(e => console.log(`selected ${e}`)),
       map(v => this._filterTeams(v)),
       tap(e => { e.forEach(f => console.log('team: ' + f.name))}),
@@ -72,6 +73,7 @@ export class AutoCompleteComponent implements OnInit {
   onTeamSelect(team: Team) {
     this.selectedTeam = team;
     this.teamControl.setValue(this.selectedTeam);
+    this.clearTeamMember();
   }
 
   clearTeam() {
