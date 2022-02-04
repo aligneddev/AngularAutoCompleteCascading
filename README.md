@@ -5,10 +5,14 @@ Cascading Auto Complete with Angular's Material UI
 I started from  https://www.itsolutionstuff.com/post/angular-material-autocomplete-with-api-exampleexample.html and expanded a bit.
 
 I learned that you can't have the [value] binding and the onSelect. That leads to multiple events fired.
-However, [value] passing in the value correctly to the .valueChanges.pipe. the (onSelectionChange)= gives more control, but `formControl.setValue(this.selectedTeam)` doesn't :-(
-setting the property of [value] doesn't change the field value
+However, [value] passing in the value correctly to the .valueChanges.pipe. the (onSelectionChange)= gives more control, but `formControl.setValue(this.selectedTeam)` doesn't fire the .pipe like I was expecting:-(
+setting the property of [value] doesn't change the field value, so we need setValue
+
+I ended up removing the [value]
+
 
 seems like onSelectionChanged is getting called twice? https://stackoverflow.com/questions/53009998/why-is-onselectionchange-called-twice
+added $event for the onTeamSelect.
 
 `tap(e => console.log(`selected ${e}`))` is helpful for debugging RxJs.
 
