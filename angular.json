@@ -3,7 +3,7 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "wallaby-angular-cli-project": {
+    "cascading-autocomplete": {
       "projectType": "application",
       "schematics": {
         "@schematics/angular:application": {
@@ -17,7 +17,7 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
-            "outputPath": "dist/wallaby-angular-cli-project",
+            "outputPath": "dist/cascading-autocomplete",
             "index": "src/index.html",
             "main": "src/main.ts",
             "polyfills": "src/polyfills.ts",
@@ -69,10 +69,10 @@
           "builder": "@angular-devkit/build-angular:dev-server",
           "configurations": {
             "production": {
-              "browserTarget": "wallaby-angular-cli-project:build:production"
+              "browserTarget": "cascading-autocompletet:build:production"
             },
             "development": {
-              "browserTarget": "wallaby-angular-cli-project:build:development"
+              "browserTarget": "cascading-autocompletet:build:development"
             }
           },
           "defaultConfiguration": "development"
@@ -80,7 +80,7 @@
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "wallaby-angular-cli-project:build"
+            "browserTarget": "cascading-autocompletet:build"
           }
         },
         "test": {
@@ -104,5 +104,5 @@
       }
     }
   },
-  "defaultProject": "wallaby-angular-cli-project"
+  "defaultProject": "cascading-autocompletet"
 }

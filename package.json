@@ -1,5 +1,5 @@
 {
-  "name": "wallaby-angular-cli-project",
+  "name": "cascading-autocomplete",
   "version": "0.0.0",
   "scripts": {
     "ng": "ng",
