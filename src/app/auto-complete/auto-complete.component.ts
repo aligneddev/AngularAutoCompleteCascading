@@ -22,6 +22,7 @@ export class AutoCompleteComponent implements OnInit {
   filteredTeams!: Observable<Team[]>;
   teamMembers: TeamMember[] = [
     { name: 'Chris Carter', team: 'Vikings' },
+    { name: 'Adam Thielen', team: 'Vikings' },
     { name: 'Brett Favre', team: 'Packers' },
     { name: 'Brian Urlacher', team: 'Bears' },
     { name: 'Barry Sanders', team: 'Lions' }];
@@ -34,7 +35,6 @@ export class AutoCompleteComponent implements OnInit {
   constructor() { }
   ngOnInit() {
     this.filteredTeams = this.teamControl.valueChanges.pipe(
-      tap(e => console.log('team start' + e)),
       debounceTime(400),
       distinctUntilChanged(),
       // on select, you get a full object, on type you get a string
@@ -57,6 +57,15 @@ export class AutoCompleteComponent implements OnInit {
 
   private _filterTeams(name: string): Team[] {
     return this.teams.filter(option => option.name.toLowerCase().includes(name.toLowerCase()));
+  }
+
+  onTeamSelect(team: Team) {
+    this.selectedTeam = team;
+  }
+
+  clearTeam(){
+    this.selectedTeam = { name: ''};
+    this.teamControl.setValue(this.selectedTeam);
   }
 
   private _filterTeamMembers(name: string): TeamMember[] {

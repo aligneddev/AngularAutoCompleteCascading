@@ -4,10 +4,20 @@
     <mat-label>Team</mat-label>
     <input type="text" matInput [formControl]="teamControl" [matAutocomplete]="auto">
     <mat-autocomplete #auto="matAutocomplete" [displayWith]="teamDisplayFn">
-      <mat-option *ngFor="let team of filteredTeams | async" [value]="team">
+      <mat-option *ngFor="let team of filteredTeams | async" [value]="team"
+      (onSelectionChange)="onTeamSelect">
         {{team.name}}
       </mat-option>
     </mat-autocomplete>
+    <button
+      *ngIf="selectedTeam.name !== ''"
+      matSuffix
+      mat-icon-button
+      aria-label="Clear"
+      (click)="clearTeam()"
+    >
+      <mat-icon>close</mat-icon>
+    </button>
   </mat-form-field>
 <form class="example-form">
   <mat-form-field class="example-full-width" appearance="fill">
