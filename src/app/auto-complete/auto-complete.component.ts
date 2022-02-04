@@ -3,7 +3,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { Observable } from 'rxjs';
-import { debounceTime, distinctUntilChanged, map, startWith, tap } from 'rxjs/operators';
+import { debounceTime, distinctUntilChanged, filter, map, startWith, tap } from 'rxjs/operators';
 
 export interface TeamMember {
   name: string;
@@ -21,6 +21,8 @@ export interface Team {
 export class AutoCompleteComponent implements OnInit {
   teams: Team[] = [{ name: 'Vikings' }, { name: 'Bears' }, { name: 'Packers' }, { name: 'Lions' }];
   selectedTeam = this.teams[0];
+
+  // set the default value
   teamControl = new FormControl(this.selectedTeam);
   filteredTeams$!: Observable<Team[]>;
   teamMembers: TeamMember[] = [
@@ -37,27 +39,25 @@ export class AutoCompleteComponent implements OnInit {
   ngOnInit() {
     this.filteredTeams$ = this.teamControl.valueChanges.pipe(
       startWith(''),
-      //tap(e => console.log(`teams changed to ${e}`)),
       debounceTime(400),
       distinctUntilChanged(),
+      filter(v => v !== null && v !== undefined),
       // on select, you get a full object, on type you get a string
-      map((value: string | Team) => value == null ? '' : (typeof value === 'string' ? value : value.name)),
-      tap(e => console.log(`selected ${e}`)),
+      map((value: string | Team) => typeof value === 'string' ? value : value.name),
+      // only filled in when you type
+      tap(e => e === '' ? '' : console.log(`team filter ${e}`)),
       map(v => this._filterTeams(v)),
-      tap(e => { e.forEach(f => console.log('team: ' + f.name)) }),
+     // tap(e => { e.forEach(f => console.log('team: ' + f.name)) }),
     );
     this.filteredTeamMembers$ = this.teamMemberControl.valueChanges.pipe(
       startWith(''),
       debounceTime(400),
       distinctUntilChanged(),
+      filter(v => v !== null && v !== undefined),
       map((value: string | TeamMember) => (typeof value === 'string' ? value : value.name)),
-      //tap(e => console.log(`selected member ${e}`)),
+      tap(e => e === '' ? '' : console.log(`member filter ${e}`)),
       map(v => this._filterTeamMembers(v)),
-      tap(e => { e.forEach(f => console.log(`member: ${f.name}`)) })
-
-      //tap(e => { e.forEach(f => console.log(`member: ${f.name}`))})
-      //(e => console.log(`selected member: ${e.name}`)),
-
+     // tap(e => { e.forEach(f => console.log(`member: ${f.name}`)) })
     );
   }
 
@@ -74,7 +74,8 @@ export class AutoCompleteComponent implements OnInit {
     return this.teams.filter(option => option.name.toLowerCase().includes(name.toLowerCase()));
   }
 
-  onTeamSelect(team: Team) {
+  onTeamSelect(team: Team, $event: any) {
+    if(!$event.isUserInput){ return;}
     this.selectedTeam = team;
     this.teamControl.setValue(this.selectedTeam);
     this.clearTeamMember();
@@ -82,7 +83,7 @@ export class AutoCompleteComponent implements OnInit {
 
   clearTeam() {
     this.selectedTeam = { name: '' };
-    this.onTeamSelect(this.selectedTeam);
+    this.teamControl.setValue(this.selectedTeam);
     this.clearTeamMember();
   }
 
@@ -99,11 +100,10 @@ export class AutoCompleteComponent implements OnInit {
 
   onTeamMemberSelect(option: TeamMember) {
     this.selectedTeamMember = option;
-  }
-
-  clearTeamMember() {
-    this.selectedTeamMember = { name: '', team: '' };
     this.teamMemberControl.setValue(this.selectedTeamMember);
   }
 
+  clearTeamMember() {
+    this.onTeamMemberSelect({ name: '', team: '' });
+  }
 }
