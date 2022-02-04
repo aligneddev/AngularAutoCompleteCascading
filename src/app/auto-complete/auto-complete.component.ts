@@ -1,6 +1,7 @@
 // https://www.itsolutionstuff.com/post/angular-material-autocomplete-with-api-exampleexample.html
+// https://stackoverflow.com/questions/54965639/cascaded-angular-material-design-sample-with-reactive-forms
 import { Component, OnInit } from '@angular/core';
-import { Form, FormControl } from '@angular/forms';
+import { Form, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Observable, of } from 'rxjs';
 import { concatAll, debounceTime, defaultIfEmpty, distinctUntilChanged, filter, map, startWith, tap } from 'rxjs/operators';
 
@@ -19,6 +20,8 @@ export interface Team {
 })
 export class AutoCompleteComponent implements OnInit {
   teams: Team[] = [{ name: 'Vikings' }, { name: 'Bears' }, { name: 'Packers' }, { name: 'Lions' }];
+  selectedTeam = this.teams[0];
+  teamControl = new FormControl(this.selectedTeam);
   filteredTeams!: Observable<Team[]>;
   teamMembers: TeamMember[] = [
     { name: 'Chris Carter', team: 'Vikings' },
@@ -26,13 +29,11 @@ export class AutoCompleteComponent implements OnInit {
     { name: 'Brett Favre', team: 'Packers' },
     { name: 'Brian Urlacher', team: 'Bears' },
     { name: 'Barry Sanders', team: 'Lions' }];
-  filteredTeamMembers!: Observable<TeamMember[]>;
-  selectedTeam = this.teams[0];
   selectedTeamMember!: TeamMember;
-  teamControl = new FormControl(this.selectedTeam);
   teamMemberControl = new FormControl();
+  filteredTeamMembers!: Observable<TeamMember[]>;
 
-  constructor() { }
+  constructor(private formBuilder: FormBuilder) { }
   ngOnInit() {
     this.filteredTeams = this.teamControl.valueChanges.pipe(
       debounceTime(400),
@@ -63,8 +64,8 @@ export class AutoCompleteComponent implements OnInit {
     this.selectedTeam = team;
   }
 
-  clearTeam(){
-    this.selectedTeam = { name: ''};
+  clearTeam() {
+    this.selectedTeam = { name: '' };
     this.teamControl.setValue(this.selectedTeam);
   }
 
@@ -79,6 +80,11 @@ export class AutoCompleteComponent implements OnInit {
 
   onTeamMemberSelect(option: TeamMember) {
     this.selectedTeamMember = option;
+  }
+
+  clearTeamMember() {
+    this.selectedTeamMember = { name: '', team: '' };
+    this.teamMemberControl.setValue(this.selectedTeamMember);
   }
 
 }
