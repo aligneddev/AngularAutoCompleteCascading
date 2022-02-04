@@ -1,15 +1,25 @@
 
 <form class="example-form">
   <mat-form-field class="example-full-width" appearance="fill">
-    <mat-label>Assignee</mat-label>
-    <input type="text" matInput [formControl]="myControl" [matAutocomplete]="auto">
-    <mat-autocomplete #auto="matAutocomplete" [displayWith]="displayFn">
-      <mat-option *ngFor="let option of filteredOptions | async" [value]="option"
-      (onSelectionChange)="onSelect(option)">
+    <mat-label>Team</mat-label>
+    <input type="text" matInput [formControl]="teamControl" [matAutocomplete]="auto">
+    <mat-autocomplete #auto="matAutocomplete" [displayWith]="teamDisplayFn">
+      <mat-option *ngFor="let team of filteredTeams | async" [value]="team">
+        {{team.name}}
+      </mat-option>
+    </mat-autocomplete>
+  </mat-form-field>
+<form class="example-form">
+  <mat-form-field class="example-full-width" appearance="fill">
+    <mat-label>Team Member</mat-label>
+    <input type="text" matInput [formControl]="teamMemberControl" [matAutocomplete]="auto">
+    <mat-autocomplete #auto="matAutocomplete" [displayWith]="teamMemberDisplay">
+      <mat-option *ngFor="let option of filteredTeamMembers | async" [value]="option"
+      (onSelectionChange)="onTeamMemberSelect(option)">
         {{option.name}}
       </mat-option>
     </mat-autocomplete>
   </mat-form-field>
 </form>
 
-<h1>{{ selectedUser?.name }}</h1>
+<h1>{{ selectedTeamMember?.name }}</h1>
