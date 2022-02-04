@@ -33,22 +33,30 @@ export class AutoCompleteComponent implements OnInit {
   teamMemberControl = new FormControl();
   filteredTeamMembers!: Observable<TeamMember[]>;
 
-  constructor(private formBuilder: FormBuilder) { }
+  constructor() { }
   ngOnInit() {
     this.filteredTeams = this.teamControl.valueChanges.pipe(
+      startWith(''),
       debounceTime(400),
       distinctUntilChanged(),
       // on select, you get a full object, on type you get a string
       map((value: string | Team) => (typeof value === 'string' ? value : value.name)),
-      map(v => (v ? this._filterTeams(v) : this.teams.slice())),
-      tap(e => e.forEach(f => console.log('team ' + f.name))),
+      tap(e => console.log(`selected ${e}`)),
+      map(v => this._filterTeams(v)),
+      tap(e => { e.forEach(f => console.log('team: ' + f.name))}),
     );
     this.filteredTeamMembers = this.teamMemberControl.valueChanges.pipe(
+      startWith(''),
       debounceTime(400),
       distinctUntilChanged(),
       map((value: string | TeamMember) => (typeof value === 'string' ? value : value.name)),
-      map(v => (v ? this._filterTeamMembers(v) : this.teamMembers.slice())),
-      tap(e => e.forEach(f => console.log(`member: ${f.name}`)))
+      //tap(e => console.log(`selected member ${e}`)),
+      map(v => this._filterTeamMembers(v)),
+      tap(e => { e.forEach(f => console.log(`member: ${f.name}`))})
+      
+      //tap(e => { e.forEach(f => console.log(`member: ${f.name}`))})
+      //(e => console.log(`selected member: ${e.name}`)),
+
     );
   }
 
@@ -57,20 +65,25 @@ export class AutoCompleteComponent implements OnInit {
   }
 
   private _filterTeams(name: string): Team[] {
+    if(!name || name.length === 0) return this.teams;
     return this.teams.filter(option => option.name.toLowerCase().includes(name.toLowerCase()));
   }
 
   onTeamSelect(team: Team) {
     this.selectedTeam = team;
+    this.teamControl.setValue(this.selectedTeam);
   }
 
   clearTeam() {
     this.selectedTeam = { name: '' };
-    this.teamControl.setValue(this.selectedTeam);
+    this.onTeamSelect(this.selectedTeam);
+    this.clearTeamMember();
   }
 
   private _filterTeamMembers(name: string): TeamMember[] {
+    if(this.selectedTeam.name === '') return [];
     let byTeam = this.teamMembers.filter(t => t.team === this.selectedTeam.name);
+    if(name === '') return byTeam;
     return byTeam.filter(option => option.name.toLowerCase().includes(name.toLowerCase()));
   }
 

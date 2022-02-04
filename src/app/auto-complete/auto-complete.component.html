@@ -1,16 +1,18 @@
 
 <form class="example-form">
-  <mat-form-field class="example-full-width" appearance="fill">
+  <mat-form-field>
     <mat-label>Team</mat-label>
-    <input type="text" matInput [formControl]="teamControl" [matAutocomplete]="auto">
+    <input type="text" matInput [formControl]="teamControl" [matAutocomplete]="auto"
+    placeholder="Pick a team">
     <mat-autocomplete #auto="matAutocomplete" [displayWith]="teamDisplayFn">
-      <mat-option *ngFor="let team of filteredTeams | async" [value]="team"
-      (onSelectionChange)="onTeamSelect">
+      <mat-option *ngFor="let team of filteredTeams | async" 
+      [value]="team"
+      (onSelectionChange)="onTeamSelect(team)">
         {{team.name}}
       </mat-option>
     </mat-autocomplete>
     <button
-      *ngIf="selectedTeam.name !== ''"
+      *ngIf="selectedTeam && selectedTeam.name !== ''"
       matSuffix
       mat-icon-button
       aria-label="Clear"
@@ -19,17 +21,30 @@
       <mat-icon>close</mat-icon>
     </button>
   </mat-form-field>
-<form class="example-form">
-  <mat-form-field class="example-full-width" appearance="fill">
+  <br />
+  <mat-form-field>
     <mat-label>Team Member</mat-label>
-    <input type="text" matInput [formControl]="teamMemberControl" [matAutocomplete]="auto">
-    <mat-autocomplete #auto="matAutocomplete" [displayWith]="teamMemberDisplay">
-      <mat-option *ngFor="let option of filteredTeamMembers | async" [value]="option"
-      (onSelectionChange)="onTeamMemberSelect(option)">
-        {{option.name}}
+    <input type="text" matInput [formControl]="teamMemberControl" [matAutocomplete]="auto2">
+    <mat-autocomplete #auto2="matAutocomplete" [displayWith]="teamMemberDisplay">
+      <mat-option *ngFor="let teamMember of filteredTeamMembers | async" [value]="teamMember"
+      (onSelectionChange)="onTeamMemberSelect(teamMember)">
+        {{teamMember.name}}
       </mat-option>
     </mat-autocomplete>
+    <button
+      *ngIf="selectedTeamMember && selectedTeamMember.name !== ''"
+      matSuffix
+      mat-icon-button
+      aria-label="Clear"
+      (click)="clearTeamMember()"
+    >
+      <mat-icon>close</mat-icon>
+    </button>
   </mat-form-field>
 </form>
+
+<div *ngFor="let t of filteredTeamMembers | async">
+  {{ t.name }}
+</div>
 
 <h1>{{ selectedTeamMember?.name }}</h1>
