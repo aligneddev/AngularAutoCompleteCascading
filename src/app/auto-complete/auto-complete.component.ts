@@ -1,3 +1,4 @@
+// https://www.itsolutionstuff.com/post/angular-material-autocomplete-with-api-exampleexample.html
 import { Component, OnInit } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { Observable } from 'rxjs';
@@ -33,6 +34,10 @@ export class AutoCompleteComponent implements OnInit {
     const filterValue = name.toLowerCase();
 
     return this.options.filter(option => option.name.toLowerCase().includes(filterValue));
+  }
+
+  onSelect(option: User){
+    this.selectedUser = option;
   }
 
 }
