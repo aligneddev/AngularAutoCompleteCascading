@@ -1,10 +1,9 @@
-# AngularAutoCompleteCascading
+# Angular AutoComplete Cascading
 
 Cascading Auto Complete with Angular's Material UI
 
 I started from  https://www.itsolutionstuff.com/post/angular-material-autocomplete-with-api-exampleexample.html and expanded a bit.
 
-# WallabyAngularCliProject
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 13.1.3.
 
