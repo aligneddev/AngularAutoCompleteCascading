@@ -69,10 +69,10 @@
           "builder": "@angular-devkit/build-angular:dev-server",
           "configurations": {
             "production": {
-              "browserTarget": "cascading-autocompletet:build:production"
+              "browserTarget": "cascading-autocomplete:build:production"
             },
             "development": {
-              "browserTarget": "cascading-autocompletet:build:development"
+              "browserTarget": "cascading-autocomplete:build:development"
             }
           },
           "defaultConfiguration": "development"
@@ -80,7 +80,7 @@
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "cascading-autocompletet:build"
+            "browserTarget": "cascading-autocomplete:build"
           }
         },
         "test": {
@@ -104,5 +104,5 @@
       }
     }
   },
-  "defaultProject": "cascading-autocompletet"
+  "defaultProject": "cascading-autocomplete"
 }
