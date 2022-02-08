@@ -2,9 +2,10 @@
   <mat-form-field>
     <mat-label>Team</mat-label>
     <input type="text" matInput [formControl]="teamControl" [matAutocomplete]="auto" placeholder="Pick a team">
-    <mat-autocomplete #auto="matAutocomplete" [displayWith]="teamDisplayFn">
-      <!-- (optionSelected)="onTeamOptionSelect($event)"> -->
-      <mat-option *ngFor="let team of filteredTeams$ | async" (onSelectionChange)="onTeamSelect(team, $event)"
+    <mat-autocomplete #auto="matAutocomplete" [displayWith]="teamDisplayFn"
+      (optionSelected)="onTeamOptionSelect($event)">
+      <mat-option *ngFor="let team of filteredTeams$ | async">
+         <!-- (onSelectionChange)="onTeamSelect(team, $event)" -->
         [value]="team">
         {{team.name}}
       </mat-option>

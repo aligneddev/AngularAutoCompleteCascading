@@ -74,20 +74,20 @@ export class AutoCompleteComponent implements OnInit {
     return this.teams.filter(option => option.name.toLowerCase().includes(name.toLowerCase()));
   }
 
-  // an alternative select method
-  // onTeamOptionSelect($event: any) {
-  //   let team = $event.option.value;
-  //   this.selectedTeam = team;
-  //   this.teamControl.setValue(this.selectedTeam);
-  //   this.clearTeamMember();
-  // }
-
-  onTeamSelect(team: Team, $event: any) {
-    if(!$event.isUserInput){ return; }
+  onTeamOptionSelect($event: any) {
+    let team = $event.option.value;
     this.selectedTeam = team;
     this.teamControl.setValue(this.selectedTeam);
     this.clearTeamMember();
   }
+  
+  // // an alternative select method
+  // onTeamSelect(team: Team, $event: any) {
+  //   if(!$event.isUserInput){ return; }
+  //   this.selectedTeam = team;
+  //   this.teamControl.setValue(this.selectedTeam);
+  //   this.clearTeamMember();
+  // }
 
   clearTeam() {
     this.selectedTeam = { name: '' };
