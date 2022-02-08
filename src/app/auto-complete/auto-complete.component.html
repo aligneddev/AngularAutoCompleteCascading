@@ -1,22 +1,16 @@
-
 <form class="example-form">
   <mat-form-field>
     <mat-label>Team</mat-label>
-    <input type="text" matInput [formControl]="teamControl" [matAutocomplete]="auto"
-    placeholder="Pick a team">
+    <input type="text" matInput [formControl]="teamControl" [matAutocomplete]="auto" placeholder="Pick a team">
     <mat-autocomplete #auto="matAutocomplete" [displayWith]="teamDisplayFn">
-      <mat-option *ngFor="let team of filteredTeams$ | async"
-      (onSelectionChange)="onTeamSelect(team, $event)">
+      <!-- (optionSelected)="onTeamOptionSelect($event)"> -->
+      <mat-option *ngFor="let team of filteredTeams$ | async" (onSelectionChange)="onTeamSelect(team, $event)"
+        [value]="team">
         {{team.name}}
       </mat-option>
     </mat-autocomplete>
-    <button
-      *ngIf="selectedTeam && selectedTeam.name !== ''"
-      matSuffix
-      mat-icon-button
-      aria-label="Clear"
-      (click)="clearTeam()"
-    >
+    <button *ngIf="selectedTeam && selectedTeam.name !== ''" matSuffix mat-icon-button aria-label="Clear"
+      (click)="clearTeam()">
       <mat-icon>close</mat-icon>
     </button>
   </mat-form-field>
@@ -26,17 +20,12 @@
     <input type="text" matInput [formControl]="teamMemberControl" [matAutocomplete]="auto2">
     <mat-autocomplete #auto2="matAutocomplete" [displayWith]="teamMemberDisplay">
       <mat-option *ngFor="let teamMember of filteredTeamMembers$ | async"
-      (onSelectionChange)="onTeamMemberSelect(teamMember)">
+        (onSelectionChange)="onTeamMemberSelect(teamMember)">
         {{teamMember.name}}
       </mat-option>
     </mat-autocomplete>
-    <button
-      *ngIf="selectedTeamMember && selectedTeamMember.name !== ''"
-      matSuffix
-      mat-icon-button
-      aria-label="Clear"
-      (click)="clearTeamMember()"
-    >
+    <button *ngIf="selectedTeamMember && selectedTeamMember.name !== ''" matSuffix mat-icon-button aria-label="Clear"
+      (click)="clearTeamMember()">
       <mat-icon>close</mat-icon>
     </button>
   </mat-form-field>
