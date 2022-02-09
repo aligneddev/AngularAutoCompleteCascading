@@ -15,11 +15,12 @@ I learned that you can't have the [value] binding and the onSelect. That leads t
 However, [value] passing in the value correctly to the .valueChanges.pipe. the (onSelectionChange)= gives more control, but `formControl.setValue(this.selectedTeam)` doesn't fire the .pipe like I was expecting:-(
 setting the property of [value] doesn't change the field value, so we need setValue
 
-I ended up removing the [value]
+I ended up removing the [value], but then adding it back
 
 
 seems like onSelectionChanged is getting called twice? https://stackoverflow.com/questions/53009998/why-is-onselectionchange-called-twice
-added $event for the onTeamSelect.
+added ` if(!$event.isUserInput){ return; }` for the onTeamSelect which seemed to help.
+Later I moved to ` (optionSelected)="onTeamOptionSelect($event)">` on the autocomplete and that seems better.
 
 `tap(e => console.log(`selected ${e}`))` is helpful for debugging RxJs.
 
