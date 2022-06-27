@@ -23,14 +23,23 @@ export class AutoCompleteComponent implements OnInit {
   selectedTeam = this.teams[0];
 
   // set the default value
-  teamControl = new FormControl(this.selectedTeam);
+  teamControl: FormControl = new FormControl(this.selectedTeam);
   filteredTeams$!: Observable<Team[]>;
   teamMembers: TeamMember[] = [
     { name: 'Chris Carter', team: 'Vikings' },
     { name: 'Adam Thielen', team: 'Vikings' },
+    { name: 'Dalvin Cook', team: 'Vikings' },
+    { name: 'John Randle', team: 'Vikings' },
+    { name: 'Adrian Peterson', team: 'Vikings' },
     { name: 'Brett Favre', team: 'Packers' },
+    { name: 'Aaron Rogers', team: 'Packers' },
     { name: 'Brian Urlacher', team: 'Bears' },
-    { name: 'Barry Sanders', team: 'Lions' }];
+    { name: 'Mike Ditka', team: 'Bears' },
+    { name: 'Walter Payton', team: 'Bears' },
+    { name: 'Barry Sanders', team: 'Lions' },
+    { name: 'Calvin Johnson', team: 'Lions' },
+    { name: 'Matthew Stafford', team: 'Lions' }
+  ];
   selectedTeamMember!: TeamMember;
   teamMemberControl = new FormControl();
   filteredTeamMembers$!: Observable<TeamMember[]>;
