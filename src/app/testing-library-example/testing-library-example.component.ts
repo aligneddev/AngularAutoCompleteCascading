@@ -7,12 +7,12 @@ export class Feedback{
   public shirtSize: string = "M";
 }
 @Component({
-  selector: 'app-testinglibrary',
-  templateUrl: './testinglibrary.component.html',
-  styleUrls: ['./testinglibrary.component.css']
+  selector: 'app-testing-library-example',
+  templateUrl: './testing-library-example.component.html',
+  styleUrls: ['./testing-library-example.component.css']
 })
 // following https://timdeschryver.dev/blog/good-testing-practices-with-angular-testing-library#getting-started
-export class TestingLibraryComponent {
+export class TestingLibraryExampleComponent {
   @Input() shirtSizes: string[] = [];
   @Output() submitForm = new EventEmitter<Feedback>();
 

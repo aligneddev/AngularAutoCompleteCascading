@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { AutoCompleteComponent } from './auto-complete/auto-complete.component';
-import { TestingLibraryComponent } from './testinglibrary/testinglibrary.component';
+import { TestingLibraryExampleComponent } from './testing-library-example/testing-library-example.component';
 
 
 export const examples = [
@@ -14,7 +14,7 @@ export const examples = [
   },
   {
     path: 'testingLibrary',
-    component: TestingLibraryComponent,
+    component: TestingLibraryExampleComponent,
     data: {
       name: 'Testing Library Example',
     },
@@ -23,7 +23,7 @@ export const examples = [
 export const routes: Routes = [
   { path: '', component: AutoCompleteComponent},
   { path: 'auto-complete',component: AutoCompleteComponent },
-  { path: 'testinglibrary', component: TestingLibraryComponent }
+  { path: 'testing-library-example', component: TestingLibraryExampleComponent }
 ];
 
 @NgModule({

@@ -9,7 +9,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { MatInputModule } from '@angular/material/input';
 import { MatIconModule} from '@angular/material/icon';
-import { TestingLibraryComponent } from './testinglibrary/testinglibrary.component';
+import { TestingLibraryExampleComponent } from './testing-library-example/testing-library-example.component';
 import { MaterialModule } from './material.module';
 import { RouterModule } from '@angular/router';
 import { AppRoutingModule } from './app-routing.module';
@@ -19,7 +19,7 @@ import { AppRoutingModule } from './app-routing.module';
   declarations: [
     AppComponent,
     AutoCompleteComponent,
-    TestingLibraryComponent
+    TestingLibraryExampleComponent
   ],
   imports: [
     BrowserModule,
