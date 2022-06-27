@@ -9,22 +9,25 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { MatInputModule } from '@angular/material/input';
 import { MatIconModule} from '@angular/material/icon';
+import { TestingLibraryComponent } from './testinglibrary/testinglibrary.component';
+import { MaterialModule } from './material.module';
+import { RouterModule } from '@angular/router';
+import { AppRoutingModule } from './app-routing.module';
 
 
 @NgModule({
   declarations: [
     AppComponent,
-    AutoCompleteComponent
+    AutoCompleteComponent,
+    TestingLibraryComponent
   ],
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
-    MatFormFieldModule,
-    MatAutocompleteModule,
     ReactiveFormsModule,
     FormsModule,
-    MatInputModule,
-    MatIconModule
+    MaterialModule,
+    AppRoutingModule
   ],
   providers: [],
   bootstrap: [AppComponent]
