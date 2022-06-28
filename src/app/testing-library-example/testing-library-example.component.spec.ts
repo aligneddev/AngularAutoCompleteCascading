@@ -49,34 +49,42 @@ describe('TestingLibraryExampleComponent', () => {
     fireEvent.click(submit);
     expect(submitSpy).not.toHaveBeenCalled();
   });
-  it('valid input, submits', () => {
+  it('valid input, submits', async () => {
     const name = screen.getByLabelText(/name/i);
     const rating = screen.getByLabelText(/rating/i);
     const description = screen.getByLabelText(/description/i);
-    const shirtSize = screen.getByLabelText(/t-shirt size/i);
-    // Using the https://github.com/testing-library/jasmine-dom
-    // I did have some troubles using it https://github.com/testing-library/jasmine-dom/issues/40
-    // WallabyJs is saying toHaveTextContent is not a function, but ng test is working
-    // adding the jasmine-dom.d.ts helped (from the example )
-    expect(shirtSize).toHaveTextContent('M');
-    //expect(shirtSize.innerHTML).toContain('M');
+    const shirtSizeSelect = screen.getByRole('combobox', { name: /t-shirt size/i });
     const submit = screen.getByText(/submit your feedback/i);
     const inputValues = {
       name: 'Kevin',
       rating: 10,
-      description: '@testing-library 🎉',
-      shirtSize: 'M'
+      description: 'testing-library',
+      shirtSize: { id: 2, value: 'M' }
     };
-    userEvent.type(name, inputValues.name.toString());
-    userEvent.type(rating, inputValues.rating.toString());
-    userEvent.type(description, inputValues.description);
-    userEvent.click(shirtSize);
-    userEvent.click(screen.getByText(inputValues.shirtSize));
+    // I needed to use await, even though the examples didn't have it....
+    await userEvent.type(name, inputValues.name);
+    expect(name).toHaveValue(inputValues.name);
+    await userEvent.type(rating, inputValues.rating.toString());
+    expect(rating).toHaveValue(inputValues.rating);
+    await userEvent.type(description, inputValues.description);
+    expect(description).toHaveValue(inputValues.description);
+    // Using the https://github.com/testing-library/jasmine-dom
+    // I did have some troubles using it https://github.com/testing-library/jasmine-dom/issues/40
+    // WallabyJs is saying toHaveTextContent is not a function, but ng test is working
+    // adding the jasmine-dom.d.ts helped (from the example )
+    await userEvent.click(shirtSizeSelect);
+    await userEvent.click(screen.getByText(inputValues.shirtSize.value));
     // "an easier way to select options is to use the `selectOptions` event", but this doesn't work for mat-select
-    //userEvent.selectOptions(shirtSize, inputValues.shirtSize);
+    // await userEvent.selectOptions(shirtSizeSelect, inputValues.shirtSize.value);
+    expect(shirtSizeSelect).toHaveTextContent('M');
 
-    userEvent.click(submit);
+    await userEvent.click(submit);
     // our form is valid, so now we can verify it has been called with the form value
-    expect(submitSpy).toHaveBeenCalledWith(inputValues);
+    expect(submitSpy).toHaveBeenCalledWith(jasmine.objectContaining({
+      name: inputValues.name,
+      rating: inputValues.rating,
+      description: inputValues.description,
+      shirtSize: inputValues.shirtSize.id
+    }));
   });
 });

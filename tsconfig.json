@@ -21,9 +21,7 @@
     "lib": [
       "es2020",
       "dom"
-    ],
-    "types": [
-      "@testing-library/jasmine-dom"]
+    ]
   },
   "angularCompilerOptions": {
     "enableI18nLegacyMessageIdFormat": false,

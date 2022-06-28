@@ -13,7 +13,7 @@ export class Feedback{
 })
 // following https://timdeschryver.dev/blog/good-testing-practices-with-angular-testing-library#getting-started
 export class TestingLibraryExampleComponent {
-  shirtSizes = ['XS', 'S', 'M', 'L', 'XL', 'XXL'];
+  shirtSizes = [{id: 1, value: 'S'}, {id: 2, value: 'M'}, {id: 3, value: 'L'}];
   @Output() submitForm = new EventEmitter<Feedback>();
 
   form = this.formBuilder.group({

@@ -5,6 +5,7 @@ import {
   BrowserDynamicTestingModule,
   platformBrowserDynamicTesting
 } from '@angular/platform-browser-dynamic/testing';
+// @ts-ignore
 import JasmineDOM from '@testing-library/jasmine-dom';
 
 // Install custom matchers from jasmine-dom

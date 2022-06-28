@@ -49,3 +49,4 @@ Run `ng build` to build the project. The build artifacts will be stored in the `
 Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
 
 Tests are written using [Testing Library](https://github.com/testing-library). See more [in my blog post](https://alignedev.net/blog/2022/testing-library-angular).
+There are [many good examples available](https://github.com/testing-library/angular-testing-library/tree/main/apps/example-app/src/app/examples).

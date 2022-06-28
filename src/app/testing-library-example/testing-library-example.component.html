@@ -1,7 +1,7 @@
 <h1>Examples Using the Testing Library</h1>
 
 <p>copied some from <a href="https://timdeschryver.dev/blog/good-testing-practices-with-angular-testing-library">example</a></p>
-
+  
  <form [formGroup]="form" (ngSubmit)="submit()">
   <legend>Feedback form</legend>
 
@@ -24,11 +24,11 @@
     <mat-label>Description</mat-label>
     <textarea matInput formControlName="description"></textarea>
   </mat-form-field>
-
   <mat-form-field>
     <mat-label>T-shirt size</mat-label>
-    <mat-select placeholder="Select" formControlName="shirtSize">
-      <mat-option *ngFor="let size of shirtSizes" [value]="size">{{ size }}</mat-option>
+    <mat-select placeholder="Select" name="shirtSize" formControlName="shirtSize">
+      <mat-option value="">---</mat-option>
+      <mat-option *ngFor="let size of shirtSizes" [value]="size.id">{{ size.value }}</mat-option>
     </mat-select>
     <mat-error *ngIf="shirtSizeControl?.hasError('required')">T-shirt size is required</mat-error>
   </mat-form-field>
