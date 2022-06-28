@@ -19,7 +19,7 @@
   <mat-form-field>
     <mat-label>Team Member</mat-label>
     <input type="text" matInput [formControl]="teamMemberControl" [matAutocomplete]="auto2">
-    <mat-autocomplete #auto2="matAutocomplete" [displayWith]="teamMemberDisplay">
+    <mat-autocomplete #auto2="matAutocomplete" [displayWith]="teamMemberDisplay" data-testid="teamMembersSelect">
       <mat-option *ngFor="let teamMember of filteredTeamMembers$ | async"
         (onSelectionChange)="onTeamMemberSelect(teamMember)">
         {{teamMember.name}}
@@ -31,13 +31,16 @@
     </button>
   </mat-form-field>
 </form>
-
-<h1>Team Members:</h1>
-<div *ngFor="let t of filteredTeamMembers$ | async">
-  {{ t.name }}
+<div data-testid="selectedValuesDiv">
+  <h1>Team Members:</h1>
+  <div data-testid="teamMembersList">
+    <ng-container *ngFor="let t of filteredTeamMembers$ | async">
+      {{ t.name }},
+    </ng-container>
+  </div>
+  <br />
+  <h1>Selected Team: </h1>
+  <span>{{ selectedTeam?.name }}</span>
+  <h1>Selected Team Member:</h1>
+  <span> {{ selectedTeamMember?.name }} </span>
 </div>
-<br />
-<h1>Selected Team: </h1>
-<span>{{ selectedTeam?.name }}</span>
-<h1>Selected Team Member:</h1>
-<span> {{ selectedTeamMember?.name }} </span>
