@@ -25,9 +25,12 @@ describe('TestingLibraryExampleComponent', () => {
     expect(component).toBeTruthy();
   });
   */
-  let submitSpy: jasmine.Spy<jasmine.Func>;
-  beforeEach(async () => {
-    submitSpy = jasmine.createSpy();
+ 
+  /**
+   * Avoid using beforeEach and create a setup function instead
+   */
+  async function setup(){
+    const submitSpy = jasmine.createSpy();
     await render(TestingLibraryExampleComponent, {
       imports: [ReactiveFormsModule, MaterialModule],
       componentProperties: {
@@ -38,18 +41,24 @@ describe('TestingLibraryExampleComponent', () => {
         } as any
       }
     });
-  });
+    return {
+      submitSpy
+    }
+  }
   it('should render the form and show the text', async () => {
+    await setup();
     // will error if missing
     screen.getByText('Examples Using the Testing Library');
   });
-  it('invalid does not submit', () => {
+  it('invalid does not submit', async () => {
+    const { submitSpy } = await setup();
     // not valid, not submitted
     const submit = screen.getByText(/Submit your feedback/i);
     fireEvent.click(submit);
     expect(submitSpy).not.toHaveBeenCalled();
   });
-  it('valid input, submits', async () => {
+  it('valid input, submits the form', async () => {
+    const { submitSpy } = await setup();    
     const name = screen.getByLabelText(/name/i);
     const rating = screen.getByLabelText(/rating/i);
     const description = screen.getByLabelText(/description/i);
