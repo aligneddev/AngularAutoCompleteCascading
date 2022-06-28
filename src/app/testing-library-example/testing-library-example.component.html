@@ -30,7 +30,7 @@
     <mat-select placeholder="Select" formControlName="shirtSize">
       <mat-option *ngFor="let size of shirtSizes" [value]="size">{{ size }}</mat-option>
     </mat-select>
-    <mat-error *ngIf="shirtSizeControl?.hasError('required')"> T-shirt size is required </mat-error>
+    <mat-error *ngIf="shirtSizeControl?.hasError('required')">T-shirt size is required</mat-error>
   </mat-form-field>
 
   <button type="submit" mat-stroked-button color="primary">Submit your feedback</button>
