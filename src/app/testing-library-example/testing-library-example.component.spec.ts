@@ -56,6 +56,8 @@ describe('TestingLibraryExampleComponent', () => {
     const shirtSize = screen.getByLabelText(/t-shirt size/i);
     // Using the https://github.com/testing-library/jasmine-dom
     // I did have some troubles using it https://github.com/testing-library/jasmine-dom/issues/40
+    // WallabyJs is saying toHaveTextContent is not a function, but ng test is working
+    // adding the jasmine-dom.d.ts helped (from the example )
     expect(shirtSize).toHaveTextContent('M');
     //expect(shirtSize.innerHTML).toContain('M');
     const submit = screen.getByText(/submit your feedback/i);
