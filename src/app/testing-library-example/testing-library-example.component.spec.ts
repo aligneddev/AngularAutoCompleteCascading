@@ -1,4 +1,5 @@
 //import { ComponentFixture, TestBed } from '@angular/core/testing';
+// from the blog post and linked code https://github.com/timdeschryver/atl-good-testing-practices/
 import { ReactiveFormsModule } from '@angular/forms';
 import { fireEvent, render, screen } from '@testing-library/angular';
 import userEvent from '@testing-library/user-event';
